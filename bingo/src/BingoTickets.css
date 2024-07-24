@@ -1,0 +1,19 @@
+.ticket {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin: 20px 0;
+}
+
+.ticket div {
+  border: 1px solid black;
+  padding: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
