@@ -10,34 +10,42 @@ const App: React.FC = () => {
     const uniqueNewValues = newValues.filter(
       (value) => !values.includes(value)
     );
-    setValues([...values, ...uniqueNewValues]);
+    setValues([...uniqueNewValues, ...values]);
   };
 
-  const isValidValueCount = (count: number) => count % 5 === 0;
+  const deleteValue = (valueToDelete: string) => {
+    setValues(values.filter((value) => value !== valueToDelete));
+  };
 
   return (
     <div className="App">
       <div className="main-content">
         <h1>Bingo Ticket Generator</h1>
 
-        
-          <div className="tickets">
-            <BingoTickets values={values} />
-          </div>
-        
+        <div className="tickets">
+          <BingoTickets values={values} />
+        </div>
       </div>
 
       <div className="sidebar">
         <BingoValueForm onAddValue={addValue} />
-        <h2>{values.length} values added.</h2>
         <p>
-          You need at least 20 values in multiples of 5 to generate tickets.
+          {values.length} values added. You need at least 20 values in multiples
+          of 5 to generate tickets.
         </p>
         <div className="values-list">
           <h2>Added Values:</h2>
           <ul>
             {values.map((value, index) => (
-              <li key={index}>{value}</li>
+              <li key={index}>
+                {value}
+                <button
+                  onClick={() => deleteValue(value)}
+                  className="delete-button"
+                >
+                  x
+                </button>
+              </li>
             ))}
           </ul>
         </div>
