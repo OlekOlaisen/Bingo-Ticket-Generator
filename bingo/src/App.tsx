@@ -13,33 +13,35 @@ const App: React.FC = () => {
     setValues([...values, ...uniqueNewValues]);
   };
 
+  const isValidValueCount = (count: number) => count % 5 === 0;
+
   return (
     <div className="App">
       <div className="main-content">
         <h1>Bingo Ticket Generator</h1>
-        <BingoValueForm onAddValue={addValue} />
-        {values.length >= 30 && (
+
+        
           <div className="tickets">
             <BingoTickets values={values} />
           </div>
-        )}
+        
       </div>
-      {values.length > 0 && (
-        <div className="sidebar">
-          <p>
-            {values.length} values added. You need at least 30 values to
-            generate tickets.
-          </p>
-          <div className="values-list">
-            <h2>Added Values:</h2>
-            <ul>
-              {values.map((value, index) => (
-                <li key={index}>{value}</li>
-              ))}
-            </ul>
-          </div>
+
+      <div className="sidebar">
+        <BingoValueForm onAddValue={addValue} />
+        <h2>{values.length} values added.</h2>
+        <p>
+          You need at least 20 values in multiples of 5 to generate tickets.
+        </p>
+        <div className="values-list">
+          <h2>Added Values:</h2>
+          <ul>
+            {values.map((value, index) => (
+              <li key={index}>{value}</li>
+            ))}
+          </ul>
         </div>
-      )}
+      </div>
     </div>
   );
 };

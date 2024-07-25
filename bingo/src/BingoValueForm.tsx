@@ -26,7 +26,7 @@ const BingoValueForm: React.FC<BingoValueFormProps> = ({ onAddValue }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="value">Bingo Values (separate with commas)</label>
+      <label htmlFor="value">Bingo Values (Single value or separate with commas)</label>
       <input
         id="value"
         name="value"

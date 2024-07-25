@@ -1,11 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   padding: 20px;
-  background-color: #f8f8f8;
+  background-color: #f0f2f5;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  height: 100dvh;
 }
 
 .main-content {
@@ -26,14 +33,16 @@ form {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 input {
   margin: 10px;
-  padding: 5px;
+  padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  flex: 1;
 }
 
 button {
@@ -44,12 +53,13 @@ button {
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:disabled {
@@ -68,11 +78,12 @@ button:disabled {
 }
 
 .values-list li {
-  background: #f4f4f4;
+  background: #fff;
   margin: 5px 0;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tickets {
@@ -81,20 +92,19 @@ button:disabled {
   gap: 20px;
   justify-items: center;
   margin-top: 40px;
-
 }
 
 .ticket {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
   gap: 2px;
   background-color: #fff;
   border: 2px solid #007bff;
   border-radius: 8px;
   overflow: hidden;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ticket div {

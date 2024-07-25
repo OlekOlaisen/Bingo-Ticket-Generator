@@ -23,23 +23,25 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
     const doc = new jsPDF({
       orientation: "portrait",
       unit: "pt",
-      format: [500, 500],
+      format: "a4",
     });
 
     // Generate and shuffle the list of drawn values
     const shuffledValues = [...values].sort(() => Math.random() - 0.5);
 
     // Add front page with the list of drawn values
-    doc.setFontSize(20);
+    doc.setFontSize(22);
     doc.setTextColor(40);
-    doc.text("Drawn Values", 40, 40);
+    doc.setFont("helvetica", "bold");
+    doc.text("Your Bingo Values", 40, 40);
 
     doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
     let yPosition = 60;
     shuffledValues.forEach((value, index) => {
       doc.text(`${index + 1}. ${value}`, 40, yPosition);
       yPosition += 15;
-      if (yPosition > 740) {
+      if (yPosition > doc.internal.pageSize.getHeight() - 40) {
         doc.addPage();
         yPosition = 40;
       }
@@ -52,28 +54,42 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
     tickets.forEach((ticket, index) => {
       if (index > 0) doc.addPage();
 
-      doc.setFontSize(16);
+      doc.setFontSize(18);
       doc.setTextColor(40);
+      doc.setFont("helvetica", "bold");
       doc.text(`Ticket ${index + 1}`, 40, 40);
 
       const cellSize = 80;
-      const startX = 40;
+      const tableWidth = cellSize * 5; // 5 cells per row
+      const startX = (doc.internal.pageSize.getWidth() - tableWidth) / 2; // Center the table horizontally
       const startY = 60;
 
       ticket.forEach((value, i) => {
         const x = startX + (i % 5) * cellSize;
         const y = startY + Math.floor(i / 5) * cellSize;
 
-        doc.setDrawColor(0, 0, 255); // Border color
-        doc.setFillColor(240, 240, 240); // Background color
+        doc.setDrawColor(0, 0, 0); // Border color
+        doc.setFillColor(240, 248, 255); // Light blue background color
         doc.rect(x, y, cellSize, cellSize, "FD"); // Draw filled rectangle
 
         doc.setTextColor(0, 0, 0); // Text color
-        doc.setFontSize(14);
-        doc.text(value, x + cellSize / 2, y + cellSize / 2, {
-          align: "center",
-          baseline: "middle",
-        });
+        doc.setFontSize(10); // Smaller font size
+        const textWidth = doc.getTextWidth(value);
+        const maxWidth = cellSize - 2; // Adjust the max width to fit within the cell with some padding
+
+        // Adjust text to fit within the cell and wrap if needed
+        if (textWidth > maxWidth) {
+          const lines = doc.splitTextToSize(value, maxWidth);
+          doc.text(lines, x + cellSize / 2, y + cellSize / 2, {
+            align: "center",
+            baseline: "middle",
+          });
+        } else {
+          doc.text(value, x + cellSize / 2, y + cellSize / 2, {
+            align: "center",
+            baseline: "middle",
+          });
+        }
       });
     });
 
@@ -91,19 +107,24 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
           min="1"
         />
       </label>
-      <button onClick={generateTickets} disabled={values.length < 30}>
+      <button
+        onClick={generateTickets}
+        disabled={values.length < 20 || values.length % 5 !== 0}
+      >
         Generate Tickets
       </button>
       <button onClick={exportToPDF} disabled={tickets.length === 0}>
         Export to PDF
       </button>
-      {values.length < 30 && (
-        <p>You need at least 30 values to generate tickets.</p>
-      )}
+      {values.length < 20 || values.length % 5 !== 0 ? (
+        <p>
+          You need at least 20 values in multiples of 5 to generate tickets.
+        </p>
+      ) : null}
       <div className="tickets">
         {tickets.map((ticket, index) => (
           <div key={index}>
-            <h3>Ticket {index + 1}</h3>
+            <h3 className="ticket-header">Ticket {index + 1}</h3>
             <div className="ticket">
               {ticket.map((value, i) => (
                 <div key={i}>{value}</div>
