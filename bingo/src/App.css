@@ -125,13 +125,13 @@ button:disabled {
 .ticket div {
   border: 1px solid #ccc;
   padding: 10px;
-  font-size: 14px;
+  font-size: 12px;
   text-align: center;
   background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
   word-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
   overflow: hidden;
 }

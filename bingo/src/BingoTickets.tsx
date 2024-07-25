@@ -26,6 +26,9 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
       format: "a4",
     });
 
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
     // Generate and shuffle the list of drawn values
     const shuffledValues = [...values].sort(() => Math.random() - 0.5);
 
@@ -41,7 +44,7 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
     shuffledValues.forEach((value, index) => {
       doc.text(`${index + 1}. ${value}`, 40, yPosition);
       yPosition += 15;
-      if (yPosition > doc.internal.pageSize.getHeight() - 40) {
+      if (yPosition > pageHeight - 40) {
         doc.addPage();
         yPosition = 40;
       }
@@ -61,7 +64,7 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
 
       const cellSize = 80;
       const tableWidth = cellSize * 5; // 5 cells per row
-      const startX = (doc.internal.pageSize.getWidth() - tableWidth) / 2; // Center the table horizontally
+      const startX = (pageWidth - tableWidth) / 2; // Center the table horizontally
       const startY = 60;
 
       ticket.forEach((value, i) => {
@@ -74,22 +77,14 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
 
         doc.setTextColor(0, 0, 0); // Text color
         doc.setFontSize(10); // Smaller font size
-        const textWidth = doc.getTextWidth(value);
-        const maxWidth = cellSize - 2; // Adjust the max width to fit within the cell with some padding
+        const maxWidth = cellSize - 10; // Adjust the max width to fit within the cell with some padding
 
         // Adjust text to fit within the cell and wrap if needed
-        if (textWidth > maxWidth) {
-          const lines = doc.splitTextToSize(value, maxWidth);
-          doc.text(lines, x + cellSize / 2, y + cellSize / 2, {
-            align: "center",
-            baseline: "middle",
-          });
-        } else {
-          doc.text(value, x + cellSize / 2, y + cellSize / 2, {
-            align: "center",
-            baseline: "middle",
-          });
-        }
+        const lines = doc.splitTextToSize(value, maxWidth);
+        doc.text(lines, x + cellSize / 2, y + cellSize / 2, {
+          align: "center",
+          baseline: "middle",
+        });
       });
     });
 
@@ -113,7 +108,10 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
       >
         Generate Tickets
       </button>
-      <button onClick={exportToPDF} disabled={values.length < 20 || values.length % 5 !== 0}>
+      <button
+        onClick={exportToPDF}
+        disabled={values.length < 20 || values.length % 5 !== 0}
+      >
         Export to PDF
       </button>
       {values.length < 20 || values.length % 5 !== 0 ? (
@@ -124,7 +122,7 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
       <div className="tickets">
         {tickets.map((ticket, index) => (
           <div key={index}>
-            <h3 className="ticket-header">Ticket {index + 1}</h3>
+            <h3>Ticket {index + 1}</h3>
             <div className="ticket">
               {ticket.map((value, i) => (
                 <div key={i}>{value}</div>
