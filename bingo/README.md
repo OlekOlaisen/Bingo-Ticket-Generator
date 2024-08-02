@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+<h1 align="center">Bingo Ticket Generator</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bingo Ticket Generator is a React web application that allows users to generate and export bingo tickets using a list of user-defined values. The application ensures all added values are unique and enables the generation of bingo tickets with 25 values each. Users can also export the generated tickets to a PDF file.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application has the following features:
+- Add single or multiple values (comma-separated)
+- Ensure unique values
+- Generate bingo tickets with 25 values each
+- Export generated tickets to a PDF file
+- User-friendly interface
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The following technologies were used to develop this application:
+- React
+- TypeScript
+- Formik and Yup for form management and validation
+- jsPDF for PDF generation
 
-- Configure the top-level `parserOptions` property like this:
+## Minimum Viable Product (MVP)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+The MVP for this project is a functioning web application that allows users to:
+- Add values
+- Generate bingo tickets
+- Export the tickets to a PDF file
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Installation
+
+To install the application, you can clone the repository from GitHub:
+- `git clone https://github.com/yourusername/bingo-ticket-generator.git`
+- Navigate to the project directory: `cd bingo-ticket-generator`
+- Install dependencies: `npm install`
+- Start the application: `npm start`
+
+## Usage
+
+1. **Add Values**: Enter single or multiple values separated by commas in the input field and click "Add Values". Ensure you add at least 20 values in multiples of 5.
+2. **Generate Tickets**: Set the number of tickets you want to generate and click "Generate Tickets".
+3. **Export to PDF**: Click "Export to PDF" to save the generated tickets as a PDF file.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
