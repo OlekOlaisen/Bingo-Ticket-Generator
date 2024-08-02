@@ -106,7 +106,7 @@ const BingoTickets: React.FC<BingoTicketsProps> = ({ values }) => {
         onClick={generateTickets}
         disabled={values.length < 20 || values.length % 5 !== 0}
       >
-        Generate Tickets
+        Generate Tickets 
       </button>
       <button
         onClick={exportToPDF}
