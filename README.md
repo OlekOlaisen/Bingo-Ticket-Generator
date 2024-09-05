@@ -28,7 +28,7 @@ Bingo Ticket Generator is a dynamic web application built with React, enabling u
 
 ## Demo
 
-[Live demo](https://www.bingo-tickets.netlify.app) 
+[Live demo](https://bingo-tickets.netlify.app/) 
 
 ## Getting Started
 
